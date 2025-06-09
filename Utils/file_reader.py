@@ -1,34 +1,38 @@
 import os
 from datetime import datetime
 
-def get_files(dir, output_file, backspace, date):
+def get_files(current_path, output_file, indent, limit_date):
+    is_authorized = False
+    all_children_authorized = True
 
-    authorized = False
-    verification_flag = True
+    # check if current_path is a file or an empty folder
+    if not os.path.isfile(current_path) and bool(os.listdir(current_path)):  
+        entries = os.listdir(current_path)
 
-    # check if dir is a file or an empty folder
-    if not os.path.isfile(dir) and bool(os.listdir(dir)):  
-        files = os.listdir(dir)
+        for entry in entries:
+            child_path = os.path.join(current_path, entry).replace("\\", "/")
 
-        for file in files:
-            newDir = os.path.join(dir, file).replace("\\", "/")
+            child_authorization = get_files(
+                child_path, output_file, 
+                indent = indent + "|________", 
+                limit_date = limit_date
+            )
 
-            return_value = get_files(newDir, output_file, backspace=backspace+"|________", date= date)
+            if not child_authorization:
+                all_children_authorized = False
 
-            if not return_value:
-                verification_flag = False
+        if all_children_authorized:
+            is_authorized = True
 
-        if verification_flag:
-            authorized = True
     else:
-        mod_time = os.path.getmtime(dir)
-        mod_date = datetime.fromtimestamp(mod_time).date()
+        modification_time = os.path.getmtime(current_path)
+        modification_date = datetime.fromtimestamp(modification_time).date()
 
-        if mod_date < date:
-            authorized = True
+        if modification_date < limit_date:
+            is_authorized = True
 
-    output_file.write(backspace + dir + " " + str(authorized) + '\n')
-    print(authorized)
+    output_file.write(indent + current_path + " " + str(is_authorized) + '\n')
+    print(is_authorized)
 
-    return authorized
+    return is_authorized
         
