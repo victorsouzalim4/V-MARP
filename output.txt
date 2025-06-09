@@ -418,7 +418,7 @@
 |________|________|________C:/Users/Valle/OneDrive/Documentos/Neural_Networks/Neural_Networks/Utils/__pycache__/plot_decision_boundary.cpython-310.pyc True
 |________|________|________C:/Users/Valle/OneDrive/Documentos/Neural_Networks/Neural_Networks/Utils/__pycache__/plot_Error_Curve.cpython-310.pyc True
 |________|________C:/Users/Valle/OneDrive/Documentos/Neural_Networks/Neural_Networks/Utils/__pycache__ True
-|________C:/Users/Valle/OneDrive/Documentos/Neural_Networks/Neural_Networks/Utils True
+|________C:/Users/Valle/OneDrive/Documentos/Neural_Networks/Neural_Networks/Utils False
 |________|________C:/Users/Valle/OneDrive/Documentos/Neural_Networks/Neural_Networks/venv/Include True
 |________|________|________|________|________C:/Users/Valle/OneDrive/Documentos/Neural_Networks/Neural_Networks/venv/Lib/site-packages/contourpy/array.py True
 |________|________|________|________|________C:/Users/Valle/OneDrive/Documentos/Neural_Networks/Neural_Networks/venv/Lib/site-packages/contourpy/chunk.py True
@@ -10585,4 +10585,4 @@
 |________|________|________C:/Users/Valle/OneDrive/Documentos/Neural_Networks/Neural_Networks/venv/share/man True
 |________|________C:/Users/Valle/OneDrive/Documentos/Neural_Networks/Neural_Networks/venv/share True
 |________C:/Users/Valle/OneDrive/Documentos/Neural_Networks/Neural_Networks/venv True
-C:/Users/Valle/OneDrive/Documentos/Neural_Networks/Neural_Networks True
+C:/Users/Valle/OneDrive/Documentos/Neural_Networks/Neural_Networks False
