@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+import shutil
 from Utils.data_base_function import get_file_authorization
 from Utils.compress_path import compress_path
 
@@ -17,8 +18,26 @@ def zip_walk(current_path, limit_date):
                     limit_date = limit_date
                 )
     else:
-        compress_path(current_path, current_path + ".zip")
-        print(f"✔ Compactado: {current_path}")
+        zip_path = current_path + ".zip"
+        
+        try:
+            compress_path(current_path, zip_path = zip_path)
+        except Exception as e:
+            print(f"❌ Falha ao compactar {current_path}: {e}")
+            return
+
+        if os.path.exists(zip_path):
+            print(f"✔ Compactado: {current_path} → {zip_path}")
+            try:
+                if os.path.isfile(current_path):
+                    os.remove(current_path)
+                elif os.path.isdir(current_path):
+                    shutil.rmtree(current_path)
+                print(f"🗑️  Original removido: {current_path}")
+            except Exception as e:
+                print(f"⚠️ Erro ao remover {current_path}: {e}")
+        else:
+            print(f"⚠️ Compactação falhou: {zip_path} não foi criado.")
 
 
         
