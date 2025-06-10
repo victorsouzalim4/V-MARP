@@ -7,18 +7,13 @@ output_file = 'output.txt'
 
 date = datetime.strptime("2025-06-09", "%Y-%m-%d").date()
 
-store_file_data(
-    db_path="file_mapping.lmdb", 
-    file_path="teste.txt",
-    file_authorization=False
-)
 
 value = get_file_authorization(
     db_path="file_mapping.lmdb",
-    file_path="teste.txt"
+    file_path="C:/Users/Valle/OneDrive/Documentos/Neural_Networks/Neural_Networks/Utils/Novo(a) Documento de Texto.txt"
 )
 
-print(value)
+print(type(value))
 
 # with open(output_file, "w", encoding="utf-8") as f:
 #     map_authorized_files(

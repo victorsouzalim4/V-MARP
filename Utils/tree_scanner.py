@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+from Utils.data_base_function import store_file_data
 
 def map_authorized_files(current_path, output_file, indent, limit_date):
     is_authorized = False
@@ -32,6 +33,12 @@ def map_authorized_files(current_path, output_file, indent, limit_date):
 
     output_file.write(indent + current_path + " " + str(is_authorized) + '\n')
     print(is_authorized)
+
+    store_file_data(
+        db_path="file_mapping.lmdb", 
+        file_path=current_path,
+        file_authorization=is_authorized
+    )
 
     return is_authorized
         
