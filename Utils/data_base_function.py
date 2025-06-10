@@ -1,17 +1,26 @@
 import lmdb
 
 def store_file_data(db_path, file_path, file_authorization):
-    """Armazena os caminhos dos arquivos e suas autorizações no banco LMDB."""
-    env = lmdb.open(db_path, map_size=10**9)  # Define um tamanho máximo de 1GB para o banco
+    """
+    Armazena os caminhos dos arquivos e suas autorizações no banco LMDB.
+    O valor é armazenado como b'1' (True) ou b'0' (False).
+    """
+    env = lmdb.open(db_path, map_size=10**9)  # Até 1GB de banco
 
     with env.begin(write=True) as txn:
-        txn.put(file_path.encode(), str(file_authorization).encode())  # Converte os dados para bytes
+        value = b"1" if file_authorization else b"0"
+        txn.put(file_path.encode(), value)
 
 def get_file_authorization(db_path, file_path):
-    """Recupera a autorização de um arquivo específico com base na chave (caminho do arquivo)."""
+    """
+    Recupera a autorização de um arquivo específico.
+    Retorna True se autorizado, False se não, ou None se a chave não existir.
+    """
     env = lmdb.open(db_path, readonly=True)
 
     with env.begin() as txn:
-        value = txn.get(file_path.encode())  # Recupera o valor associado à chave
-    
-    return value.decode() if value else None  # Retorna a autorização ou None se a chave não existir
+        value = txn.get(file_path.encode())
+
+    if value is None:
+        return None
+    return value == b"1"
