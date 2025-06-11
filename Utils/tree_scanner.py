@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 from Utils.data_base_function import store_file_data
 
-def map_authorized_files(current_path, output_file, indent, limit_date):
+def map_authorized_files(current_path, output_file, indent, limit_date, env, batch_limit = 1000, batch = [], level = 0):
     is_authorized = False
     all_children_authorized = True
 
@@ -15,7 +15,10 @@ def map_authorized_files(current_path, output_file, indent, limit_date):
             child_authorization = map_authorized_files(
                 child_path, output_file, 
                 indent = indent + "|________", 
-                limit_date = limit_date
+                limit_date = limit_date,
+                env = env,
+                batch = batch,
+                level = level + 1
             )
 
             if not child_authorization:
@@ -34,11 +37,24 @@ def map_authorized_files(current_path, output_file, indent, limit_date):
     output_file.write(indent + current_path + " " + str(is_authorized) + '\n')
     print(is_authorized)
 
-    store_file_data(
-        db_path="file_mapping.lmdb", 
-        file_path=current_path,
-        file_authorization=is_authorized
-    )
+    batch.append((current_path, is_authorized))
+
+    if len(batch) >= batch_limit:
+        flush_batch(batch, env)
+
+    if level == 0:
+        flush_batch(batch, env)
 
     return is_authorized
+
+def flush_batch(batch, env):
+    with env.begin(write=True) as txn:
+        for path_line, is_authorized in batch:
+            store_file_data(
+                txn = txn, 
+                file_path = path_line.strip(), 
+                file_authorization = is_authorized
+            )
+    batch.clear()
+
         

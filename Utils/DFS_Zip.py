@@ -4,7 +4,7 @@ import shutil
 from Utils.data_base_function import get_file_authorization
 from Utils.compress_path import compress_path
 
-def zip_walk(current_path, limit_date):
+def zip_walk(current_path, limit_date, ):
 
     if not get_file_authorization(db_path = "file_mapping.lmdb", file_path = current_path):
         if not os.path.isfile(current_path):  # check if current_path is a file or an empty folder

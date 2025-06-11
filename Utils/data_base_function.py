@@ -1,15 +1,12 @@
 import lmdb
 
-def store_file_data(db_path, file_path, file_authorization):
+def store_file_data(file_path, file_authorization, txn):
     """
     Armazena os caminhos dos arquivos e suas autorizações no banco LMDB.
     O valor é armazenado como b'1' (True) ou b'0' (False).
     """
-    env = lmdb.open(db_path, map_size=10**9)  # Até 1GB de banco
-
-    with env.begin(write=True) as txn:
-        value = b"1" if file_authorization else b"0"
-        txn.put(file_path.encode(), value)
+    value = b"1" if file_authorization else b"0"
+    txn.put(file_path.encode(), value)
 
 def get_file_authorization(db_path, file_path):
     """
