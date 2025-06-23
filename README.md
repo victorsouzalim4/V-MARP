@@ -64,7 +64,7 @@ Saídas geradas:
 V-MARP/
 │
 ├── Utils/
-│   ├── tree_scanner.py       # Etapa 1: DFS com validação e propagação
+│   ├── tree_scanner.py       # Etapa 1: DFS com validação e retropropagação
 │   ├── DFS_Zip.py            # Etapa 2: DFS com poda lógica e compactação
 │   └── data_base_function.py # Funções de acesso ao LMDB
 │
