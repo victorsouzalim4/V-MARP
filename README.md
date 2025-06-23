@@ -78,7 +78,7 @@ V-MARP/
 
 ## ✅ Funcionalidades
 
-- ✅ Validação recursiva de diretórios com propagação bottom-up
+- ✅ Validação recursiva de diretórios com backtracking
 - ✅ Armazenamento eficiente com LMDB
 - ✅ Poda lógica na segunda varredura
 - ✅ Suporte a arquivos compactados (.zip)
