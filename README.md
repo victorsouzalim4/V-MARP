@@ -42,7 +42,7 @@ pip install -r requirements.txt
 Configure o diretório e a data de corte em `main.py`:
 
 ```python
-dir = 'G:/Drives compartilhados/TI'
+dir = '[SEU DIRETORIO]'
 date = datetime.strptime("2024-01-01", "%Y-%m-%d").date()
 ```
 
